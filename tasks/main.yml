@@ -1,0 +1,47 @@
+#
+# From https://docs.docker.com/engine/swarm/swarm-tutorial/#three-networked-host-machines
+#
+# - name: Update packages
+#   shell: "yum -y update"
+#   changed_when: False
+
+- name: Install base packages
+  yum:
+    name: "{{ item }}"
+  with_items:
+    - yum-utils
+    - device-mapper-persistent-data
+    - lvm2
+
+- name: docker repo
+  shell: "yum-config-manager \
+             --add-repo \
+             https://download.docker.com/linux/centos/docker-ce.repo"
+  changed_when: False
+
+- name: Update the yum package index.
+  shell: "yum makecache fast"
+  changed_when: False
+
+- name:  Ensure old versions are not present
+  yum:
+    name:  "{{ item }}"
+    state: absent
+  with_items:
+    - "docker-common"
+    - "container-selinux"
+    - "docker-selinux"
+    - "docker-engine"
+
+- name: Install docker ce
+  yum:
+    name: "{{ item }}"
+  with_items:
+    - selinux-policy-base
+    - docker-ce
+
+- name: Start docker
+  service:
+    name:    docker
+    state:   started
+    enabled: True
