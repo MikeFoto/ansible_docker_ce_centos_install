@@ -35,10 +35,8 @@
 
 - name: Install docker ce
   yum:
-    name: "{{ item }}"
-  with_items:
-    - selinux-policy-base
-    - docker-ce
+    name:  docker-ce
+    state: latest
 
 - name: Start docker
   service:
