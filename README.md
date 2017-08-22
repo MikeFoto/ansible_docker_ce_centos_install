@@ -4,7 +4,7 @@ Install docker on Centos host ( Based on  https://docs.docker.com/engine/swarm/s
 
 # License
 
-MIT
+GNU GPLv3 
 
 # Author Information
 
