@@ -28,15 +28,15 @@
   shell: "yum makecache fast"
   changed_when: False
 
-- name:  Ensure old versions are not present
-  yum:
-    name:  "{{ item }}"
-    state: absent
-  with_items:
-    - "docker-common"
-    - "container-selinux"
-    - "docker-selinux"
-    - "docker-engine"
+# - name:  Ensure old versions are not present
+#   yum:
+#     name:  "{{ item }}"
+#     state: absent
+#   with_items:
+#     - "docker-common"
+#     - "container-selinux"
+#     - "docker-selinux"
+#     - "docker-engine"
 
 - name: Install docker ce
   yum:
